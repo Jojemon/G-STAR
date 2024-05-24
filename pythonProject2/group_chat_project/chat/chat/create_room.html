@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .create-room-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .create-room-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .create-room-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .create-room-form input[type="text"],
+    .create-room-form input[type="email"],
+    .create-room-form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .create-room-button,
+    .back-button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-bottom: 10px;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      box-sizing: border-box; /* Ensure padding doesn't add to width */
+    }
+
+    .create-room-button:hover,
+    .back-button:hover {
+      background-color: #005f99;
+    }
+  </style>
+
+  <div class="create-room-container">
+    <h2>Create Room</h2>
+    <form method="post" action="{% url 'create_room' %}" class="create-room-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="create-room-button">Create Room</button>
+    </form>
+    <a href="javascript:history.back()" class="back-button">Back</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block extra_css %}
+<style>
+  .register-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; /* Changed to column layout */
+    align-items: center; /* Center items horizontally */
+  }
+
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    width: 100%; /* Ensure form width is 100% of container */
+  }
+
+  .register-form input[type="text"],
+  .register-form input[type="email"],
+  .register-form input[type="password"] {
+    width: 100%; /* Make inputs take up full width of container */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+  }
+
+  .register-form button, .back-button {
+    width: 100%; /* Make buttons take up full width of container */
+    padding: 10px 20px;
+    background-color: #007acc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block; /* Display buttons as block elements */
+    margin-top: 10px; /* Add space between buttons */
+  }
+
+  .register-form button:hover, .back-button:hover {
+    background-color: #005f99;
+  }
+
+  .button-row {
+    width: 100%; /* Ensure button row takes up full width */
+    display: flex;
+    justify-content: space-between; /* Align buttons with space between */
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="register-container">
+  <h2>Register</h2>
+  <div class="register-form">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="button">Register</button>
+    </form>
+    <button class="back-button" onclick="goBack()">Back</button>
+  </div>
+</div>
+
+<script>
+  // Function to go back to the previous page
+  function goBack() {
+    window.history.back();
+  }
+</script>
+{% endblock %}

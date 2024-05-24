@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  /* Disabling scrollbars for Chrome, Opera, and Safari */
+  #chat-messages::-webkit-scrollbar {
+      display: none;
+  }
+  body::-webkit-scrollbar {
+      display: none;
+  }
+  .chat-message-container {
+    padding: 10px;
+    background-color: #f0f2f5;
+    border-radius: 0;
+    margin-bottom: 20px;
+    max-height: 100px;
+    overflow-y: auto;
+    direction: rtl; /* Right-to-left direction */
+    display: flex;
+    flex-direction: column; /* Display messages in column */
+  }
+  .chat-message-container p {
+    margin: 5px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left; /* Align text to the left */
+    direction: ltr; /* Left-to-right direction */
+  }
+</style>
+
+<div style="padding: 10px; max-width: 100%; box-sizing: border-box;">
+  <h2 style="margin-top: 0; margin-bottom: 20px;">Chat Room: {{ room.name }}</h2>
+
+  <div id="chat-messages" class="chat-message-container">
+    {% for message in messages %}
+      <p>
+        {% if message.sender == request.user %}
+          <strong style="color: #1877f2; font-weight: bold; margin-right: 5px;">You:</strong>
+        {% else %}
+          <strong style="color: #1877f2; font-weight: bold; margin-right: 5px;">{{ message.sender.username }}:</strong>
+        {% endif %}
+        {{ message.content }}
+      </p>
+    {% endfor %}
+  </div>
+
+  <div style="max-width: 100%; box-sizing: border-box; display: flex; align-items: center;">
+    <form id="message-form" method="post" action="{% url 'chat_room' room_id=room.id %}" style="flex: 1;">
+      {% csrf_token %}
+      <div style="display: flex; align-items: center;">
+        <strong style="margin-right: 10px;">{{ request.user.username }}:</strong>
+        <textarea name="content" cols="30" rows="2" required="" id="id_content" style="flex: 1; margin-right: 10px;"></textarea> <!-- Adjusted cols value -->
+        <button type="submit" id="send-button" style="background-color: #1877f2; color: white; border: none; 
+        padding: 10px 20px; border-radius: 0; cursor: pointer; transition: background-color 0.3s ease; 
+        font-size: 14px;" onmouseover="this.style.backgroundColor='#166fe5'"
+        onmouseout="this.style.backgroundColor='#1877f2'">Send</button>
+      </div>
+    </form>
+    <!-- Back button styled like the Send button but with ash color -->
+    <button onclick="goBack()" style="background-color: #bbb; color: white; border: none; 
+    padding: 10px 20px; border-radius: 0; cursor: pointer; transition: background-color 0.3s ease; 
+    font-size: 14px; margin-left: 10px;" onmouseover="this.style.backgroundColor='#999'"
+    onmouseout="this.style.backgroundColor='#000'">Back</button>
+  </div>
+</div>
+
+<script>
+  // Function to go back to the previous page
+  function goBack() {
+    window.history.back();
+  }
+
+  // Trigger form submission on Enter key press
+  document.getElementById("id_content").addEventListener("keydown", function(event) {
+    if (event.keyCode === 13) { // Enter key
+      event.preventDefault(); // Prevent default action (newline)
+      document.getElementById("message-form").submit(); // Submit the form
+    }
+  });
+</script>
+{% endblock %}

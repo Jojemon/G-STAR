@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Welcome to G-STAR
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    font-family: 'Arial', sans-serif;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .button {
+    padding: 12px 25px;
+    background-color: #006F8C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    transition: background-color 0.3s ease;
+  }
+
+  .button:hover {
+    background-color: #005f7a; /* Darker shade on hover */
+  }
+
+  .link {
+    color: #006F8C;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .link:hover {
+    color: #004f68; /* Darker shade on hover */
+    text-decoration: underline; /* Underline on hover */
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="welcome-text" style="color: #416A59; font-size: 36px; font-weight: bold; text-align: center; margin-bottom: 30px; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); animation: fadeIn 2s ease-in-out;">
+  Welcome to G-STAR
+</div>
+<div class="login-container" style="max-width: 400px; margin: 0 auto; padding: 30px; background-color: rgba(230, 222, 222, 0.95); border-radius: 12px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);">
+  <h2 style="margin-top: 0; color: #333; text-align: center; font-family: 'Arial', sans-serif;">Login</h2>
+  <form method="post" class="login-form" style="display: flex; flex-direction: column;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="button">
+      Login
+    </button>
+  </form>
+  <p style="margin-top: 15px; text-align: center; font-family: 'Arial', sans-serif;">Don't have an account? 
+    <a href="{% url 'register' %}" class="link">Register here</a>.
+  </p>
+</div>
+{% endblock %}

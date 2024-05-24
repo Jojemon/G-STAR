@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}G-STAR Application{% endblock %}</title>
+    {% block extra_css %}{% endblock %}
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5); /* Gradient background */
+            color: #333; /* Dark grey text color */
+            overflow-x: hidden; /* Hide horizontal overflow */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #005f99; /* Darker blue for the header */
+            color: white;
+            padding: 1%;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 139, 0.5); /* Blue shadow */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+    
+        }
+
+        header .left-content {
+            display: flex;
+            align-items: left;
+        }
+
+        header .right-content {
+            flex: 1;
+            text-align: right;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            padding: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            background-color: #007acc; /* Lighter blue on hover */
+        }
+
+        /* Main Styles */
+        main {
+            margin: 80px auto 60px; /* Adjusted margin to prevent overlap with header and footer */
+            padding: 20px;
+            max-width: 800px;
+            border-radius: 8px;
+            text-align: center;
+             /* White background */
+            box-shadow: 0 0 10px rgba(0, 0, 139, 0.5); /* Blue shadow */
+            overflow: hidden;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #005f99; /* Darker blue for the footer */
+            color: white;
+            text-align: center;
+            padding: 1%;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="left-content">
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 G-STAR Application. All rights reserved.</p>
+    </footer>
+</body>
+</html>

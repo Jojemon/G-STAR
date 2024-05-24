@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .group-chat-container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f7f7f7;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .group-chat-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .group-chat-container ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .group-chat-container li {
+      margin-bottom: 10px;
+    }
+
+    .group-chat-container li a {
+      display: block;
+      padding: 10px;
+      background-color: #007acc;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .group-chat-container li a:hover {
+      background-color: #005f99;
+    }
+
+    .create-room-button,
+    .back-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007acc;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .create-room-button:hover,
+    .back-button:hover {
+      background-color: #005f99;
+    }
+  </style>
+
+  <div class="group-chat-container">
+    <h2>Group Chat</h2>
+    <ul>
+      {% for room in rooms %}
+        <li><a href="{% url 'chat_room' room_id=room.id %}">{{ room.name }}</a></li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'create_room' %}" class="create-room-button">Create a Room</a>
+    <a href="javascript:history.back()" class="back-button">Back</a>
+  </div>
+{% endblock %}
